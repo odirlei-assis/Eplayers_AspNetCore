@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Eplayers_AspNetCore.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,9 +24,45 @@ namespace Eplayers_AspNetCore.Controllers
             Equipe novaEquipe = new Equipe();
             novaEquipe.IdEquipe = Int32.Parse(form["idEquipe"]);
             novaEquipe.Nome = form["Nome"];
-            novaEquipe.Imagem = form["Imagem"];
+            // novaEquipe.Imagem = form["Imagem"];
+
+            //Inicio Upload
+
+            if (form.Files.Count > 0)
+            {
+                var file = form.Files[0];
+                var folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/Equipes");
+            
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                                    //localhost:5001 + wwwroot/img/ + Equipes + equipe.jpg
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/", folder, file.FileName);
+
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+
+                novaEquipe.Imagem = file.FileName;
+            }else
+            {
+                novaEquipe.Imagem = "padrao.png";                
+            }
+
+            //Término Upload
 
             equipeModel.Cadastrar(novaEquipe);
+            ViewBag.Equipes = equipeModel.LerTodos();
+
+            return LocalRedirect("~/Equipe/Listar");
+        }
+
+        [Route("{id}")]
+        public IActionResult Excluir(int id){
+            equipeModel.Deletar(id);
+            
             ViewBag.Equipes = equipeModel.LerTodos();
 
             return LocalRedirect("~/Equipe/Listar");
