@@ -38,6 +38,10 @@ ul{
     list-style-type: none;
 }
 
+.erro{
+    color: var(--pink);
+}
+
 .cabecalho{
     display: flex;
     justify-content: space-around;
@@ -75,7 +79,7 @@ ul{
 }
 
 .banner .btn{
-    margin-top: 230px;
+    margin: 230px 10px 0 10px;
 }
 
 .sobre{
