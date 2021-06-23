@@ -1,0 +1,15 @@
+OBS.
+IIS - Servidor Windows
+Apache - Linux
+FTP - File Transfer Protocol
+
+PASSOS:
+- Fazer download do filezilla
+- Gerar arquivos para publicação (dotnet publish), isso ira criar uma pasta chamada publish dentro da pasta bin/Debug/net5.0
+- Acessar smarterasp.net
+- Criar conta 60 dias gratis
+- Confirmar email
+- Fazer login no Smarterasp, clicar em trynow, next e em enviar para finalizar o acesso
+- Acesse o painel de controle de sua hospedagem
+  Copie os dados de acesso de FTP: FTP Address => Host, FTP Id de login => Nome de usuario, senha igual a cadastrada
+- No Filezilla acesse a pasta com o nome criado, apague o arquivo default e transfira os arquivos que estao dentro da pasta default do seu sistema
